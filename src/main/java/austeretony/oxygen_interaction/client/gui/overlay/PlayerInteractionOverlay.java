@@ -2,9 +2,9 @@ package austeretony.oxygen_interaction.client.gui.overlay;
 
 import austeretony.alternateui.screen.core.GUISimpleElement;
 import austeretony.oxygen.client.core.api.ClientReference;
+import austeretony.oxygen.client.gui.overlay.IOverlay;
 import austeretony.oxygen.client.gui.settings.GUISettings;
 import austeretony.oxygen.client.input.OxygenKeyHandler;
-import austeretony.oxygen.client.interaction.IInteractionOverlay;
 import austeretony.oxygen.common.config.OxygenConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -12,12 +12,12 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class PlayerInteractionOverlay implements IInteractionOverlay {
+public class PlayerInteractionOverlay implements IOverlay {
 
     private Entity pointed;
 
     @Override
-    public boolean isValid() {
+    public boolean shouldDraw() {
         this.pointed = ClientReference.getPointedEntity();
         return this.pointed != null 
                 && this.pointed instanceof EntityPlayer

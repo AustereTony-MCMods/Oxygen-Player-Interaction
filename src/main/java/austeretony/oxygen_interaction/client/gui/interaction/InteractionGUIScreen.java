@@ -2,26 +2,24 @@ package austeretony.oxygen_interaction.client.gui.interaction;
 
 import java.util.UUID;
 
-import austeretony.alternateui.screen.core.AbstractGUIScreen;
 import austeretony.alternateui.screen.core.AbstractGUISection;
 import austeretony.alternateui.screen.core.GUIBaseElement;
 import austeretony.alternateui.screen.core.GUIWorkspace;
-import austeretony.oxygen.common.api.OxygenGUIHelper;
+import austeretony.oxygen.client.gui.SynchronizedGUIScreen;
 import austeretony.oxygen.common.main.OxygenMain;
 import austeretony.oxygen_interaction.common.main.InteractionMain;
 import net.minecraft.util.ResourceLocation;
 
-public class InteractionGUIScreen extends AbstractGUIScreen {
+public class InteractionGUIScreen extends SynchronizedGUIScreen {
 
-    public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(OxygenMain.MODID, "textures/gui/interaction/background.png");
+    public static final ResourceLocation INTERACTION_MENU_BACKGROUND = new ResourceLocation(OxygenMain.MODID, "textures/gui/interaction/interaction_menu.png");
 
     private final UUID playerUUID;
 
-    protected InteractionGUISection mainSection;
-
-    private boolean initialized;
+    protected InteractionGUISection interactionSection;
 
     public InteractionGUIScreen(UUID playerUUID) {
+        super(InteractionMain.PLAYER_INTERACTION_MENU_SCREEN_ID);
         this.playerUUID = playerUUID;
     }
 
@@ -32,13 +30,12 @@ public class InteractionGUIScreen extends AbstractGUIScreen {
 
     @Override
     protected void initSections() {
-        this.mainSection = new InteractionGUISection(this);
-        this.getWorkspace().initSection(this.mainSection);        
+        this.getWorkspace().initSection(this.interactionSection = new InteractionGUISection(this));        
     }
 
     @Override
     protected AbstractGUISection getDefaultSection() {
-        return this.mainSection;
+        return this.interactionSection;
     }
 
     @Override
@@ -49,28 +46,12 @@ public class InteractionGUIScreen extends AbstractGUIScreen {
         return false;
     }
 
-    @Override
-    public void updateScreen() {    
-        super.updateScreen();
-        if (!this.initialized//reduce map calls
-                && OxygenGUIHelper.isNeedSync(InteractionMain.PLAYER_INTERACTION_MENU_SCREEN_ID)
-                && OxygenGUIHelper.isScreenInitialized(InteractionMain.PLAYER_INTERACTION_MENU_SCREEN_ID)
-                && OxygenGUIHelper.isDataRecieved(InteractionMain.PLAYER_INTERACTION_MENU_SCREEN_ID)) {
-            this.initialized = true;
-            OxygenGUIHelper.resetNeedSync(InteractionMain.PLAYER_INTERACTION_MENU_SCREEN_ID);
-            this.mainSection.initActions();
-        }
-    }
-
-    @Override
-    public void onGuiClosed() {
-        super.onGuiClosed();
-        OxygenGUIHelper.resetNeedSync(InteractionMain.PLAYER_INTERACTION_MENU_SCREEN_ID);
-        OxygenGUIHelper.resetScreenInitialized(InteractionMain.PLAYER_INTERACTION_MENU_SCREEN_ID);
-        OxygenGUIHelper.resetDataRecieved(InteractionMain.PLAYER_INTERACTION_MENU_SCREEN_ID);
-    }
-
     public UUID getPlayerUUID() {
         return this.playerUUID;
+    }
+
+    @Override
+    public void loadData() {
+        this.interactionSection.initActions();
     }
 }
