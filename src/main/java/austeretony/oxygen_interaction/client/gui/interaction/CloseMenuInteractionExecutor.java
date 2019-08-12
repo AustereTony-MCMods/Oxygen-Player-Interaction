@@ -2,19 +2,20 @@ package austeretony.oxygen_interaction.client.gui.interaction;
 
 import java.util.UUID;
 
+import austeretony.oxygen.client.gui.OxygenGUITextures;
 import austeretony.oxygen.client.interaction.IInteractionMenuExecutor;
 import net.minecraft.util.ResourceLocation;
 
-public class CloseScreenInteractionExecutor implements IInteractionMenuExecutor {
+public class CloseMenuInteractionExecutor implements IInteractionMenuExecutor {
 
     @Override
     public String getName() {
-        return "oxygen_interaction.gui.interaction.close";
+        return "oxygen_interaction.gui.interaction.cancel";
     }
 
     @Override
     public ResourceLocation getIcon() {
-        return null;
+        return OxygenGUITextures.CROSS_ICONS;
     }
 
     @Override
