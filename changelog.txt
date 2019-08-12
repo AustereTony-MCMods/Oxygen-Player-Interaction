@@ -1,3 +1,6 @@
+0.8.1b [2019-08-12]
++Redesign of the overlay and the interaction menu.
+
 0.8.0b
 +Performance improvements.
 
