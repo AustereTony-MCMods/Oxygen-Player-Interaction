@@ -1,19 +1,21 @@
 package austeretony.oxygen_interaction.client.gui.interaction;
 
-import austeretony.oxygen.client.core.api.ClientReference;
-import austeretony.oxygen.client.gui.IndexedGUIButton;
-import austeretony.oxygen.client.gui.settings.GUISettings;
-import austeretony.oxygen.client.interaction.IInteractionMenuExecutor;
-import austeretony.oxygen.common.main.OxygenSoundEffects;
+import austeretony.alternateui.util.EnumGUIAlignment;
+import austeretony.oxygen_core.client.api.ClientReference;
+import austeretony.oxygen_core.client.gui.IndexedGUIButton;
+import austeretony.oxygen_core.client.gui.elements.CustomRectUtils;
+import austeretony.oxygen_core.client.gui.settings.GUISettings;
+import austeretony.oxygen_core.client.interaction.InteractionMenuEntry;
+import austeretony.oxygen_core.common.sound.OxygenSoundEffects;
 import net.minecraft.client.renderer.GlStateManager;
 
-public class ActionGUIButton extends IndexedGUIButton<IInteractionMenuExecutor> {
+public class ActionGUIButton extends IndexedGUIButton<InteractionMenuEntry> {
 
-    public ActionGUIButton(IInteractionMenuExecutor index) {
+    public ActionGUIButton(InteractionMenuEntry index) {
         super(index);
         this.setTexture(index.getIcon());
         this.setDisplayText(ClientReference.localize(index.getName()));
-        this.enableDynamicBackground(GUISettings.instance().getEnabledElementColor(), GUISettings.instance().getEnabledElementColor(), GUISettings.instance().getHoveredElementColor());
+        this.enableDynamicBackground(GUISettings.get().getEnabledElementColor(), GUISettings.get().getEnabledElementColor(), GUISettings.get().getHoveredElementColor());
         this.setSound(OxygenSoundEffects.BUTTON_CLICK.soundEvent);
         this.enableFull();
     }
@@ -41,7 +43,7 @@ public class ActionGUIButton extends IndexedGUIButton<IInteractionMenuExecutor> 
                 iconU = 20;                      
             }
 
-            InteractionMenuGUIFiller.drawGradient(0, 0, this.getWidth(), this.getHeight(), 0x00000000, color);
+            CustomRectUtils.drawGradientRect(0.0D, 0.0D, this.getWidth(), this.getHeight(), 0x00000000, color, EnumGUIAlignment.LEFT);
 
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 

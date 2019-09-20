@@ -1,18 +1,19 @@
 package austeretony.oxygen_interaction.client.gui.overlay;
 
 import austeretony.alternateui.screen.core.GUISimpleElement;
-import austeretony.oxygen.client.core.api.ClientReference;
-import austeretony.oxygen.client.gui.overlay.IOverlay;
-import austeretony.oxygen.client.gui.settings.GUISettings;
-import austeretony.oxygen.client.input.InteractKeyHandler;
-import austeretony.oxygen.common.config.OxygenClientConfig;
+import austeretony.oxygen_core.client.api.ClientReference;
+import austeretony.oxygen_core.client.config.OxygenConfigClient;
+import austeretony.oxygen_core.client.gui.elements.CustomRectUtils;
+import austeretony.oxygen_core.client.gui.overlay.Overlay;
+import austeretony.oxygen_core.client.gui.settings.GUISettings;
+import austeretony.oxygen_core.client.input.InteractKeyHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class PlayerInteractionOverlay implements IOverlay {
+public class PlayerInteractionOverlay implements Overlay {
 
     private Entity pointed;
 
@@ -25,33 +26,51 @@ public class PlayerInteractionOverlay implements IOverlay {
     }
 
     @Override
+    public boolean drawWhileInGUI() {
+        return false;
+    }
+
+    @Override
     public void draw(float partialTicks) {
         Minecraft mc = ClientReference.getMinecraft();
         ScaledResolution scaledResolution = new ScaledResolution(mc);  
         int 
         x = scaledResolution.getScaledWidth() / 2 + 10,
-        y = scaledResolution.getScaledHeight() / 2,
-        keyNameWidth;
+        y = scaledResolution.getScaledHeight() / 2;
 
         GlStateManager.pushMatrix();    
         GlStateManager.translate(x, y, 0.0F);          
-        GlStateManager.scale(GUISettings.instance().getOverlayScale(), GUISettings.instance().getOverlayScale(), 0.0F);         
+        GlStateManager.scale(GUISettings.get().getOverlayScale(), GUISettings.get().getOverlayScale(), 0.0F);         
 
-        mc.fontRenderer.drawString(this.pointed.getName(), 0, 0, GUISettings.instance().getAdditionalOverlayTextColor(), true);
+        mc.fontRenderer.drawString(this.pointed.getName(), 0, 0, GUISettings.get().getAdditionalOverlayTextColor(), true);
 
-        mc.fontRenderer.drawString(ClientReference.localize("oxygen_interaction.gui.overlay.player"), 0, 12, GUISettings.instance().getBaseOverlayTextColor(), true);
+        mc.fontRenderer.drawString(ClientReference.localize("oxygen_interaction.gui.overlay.player"), 0, 12, GUISettings.get().getBaseOverlayTextColor(), true);
 
-        if (!OxygenClientConfig.INTERACT_WITH_RMB.getBooleanValue()) {
+        if (!OxygenConfigClient.INTERACT_WITH_RMB.getBooleanValue()) {
             String interactionKeyName = InteractKeyHandler.INTERACT.getDisplayName();
-            keyNameWidth = mc.fontRenderer.getStringWidth(interactionKeyName);
+            int
+            keyNameWidth = mc.fontRenderer.getStringWidth(interactionKeyName),
+            frameWidth = keyNameWidth + 6,
+            frameHeight = 12;
 
-            GUISimpleElement.drawRect(0, 24, keyNameWidth + 6, 36, GUISettings.instance().getBaseGUIBackgroundColor());
-            GUISimpleElement.drawRect(1, 25, keyNameWidth + 5, 35, GUISettings.instance().getAdditionalGUIBackgroundColor());
-            mc.fontRenderer.drawString(interactionKeyName, 3, 27, GUISettings.instance().getAdditionalOverlayTextColor());
-            mc.fontRenderer.drawString(ClientReference.localize("key.oxygen.interact"), 10 + keyNameWidth, 27, GUISettings.instance().getAdditionalOverlayTextColor(), true);
+            this.drawKeyFrame(0, 24, frameWidth, frameHeight);
+
+            mc.fontRenderer.drawString(interactionKeyName, 3, 27, GUISettings.get().getAdditionalOverlayTextColor());
+            mc.fontRenderer.drawString(ClientReference.localize("key.oxygen.interact"), 10 + keyNameWidth, 27, GUISettings.get().getAdditionalOverlayTextColor(), true);
         } else
-            mc.fontRenderer.drawString(ClientReference.localize("key.oxygen.interact"), 0, 27, GUISettings.instance().getAdditionalOverlayTextColor(), true);
+            mc.fontRenderer.drawString(ClientReference.localize("key.oxygen.interact"), 0, 27, GUISettings.get().getAdditionalOverlayTextColor(), true);
 
         GlStateManager.popMatrix();
+    }
+
+    private void drawKeyFrame(int x, int y, int width, int height) {
+        //background
+        GUISimpleElement.drawRect(x, y, x + width, y + height, GUISettings.get().getBaseGUIBackgroundColor());
+
+        //frame
+        CustomRectUtils.drawRect(x, y, x + 0.4D, y + height, GUISettings.get().getAdditionalGUIBackgroundColor());
+        CustomRectUtils.drawRect(x + width - 0.4D, y, x + width, y + height, GUISettings.get().getAdditionalGUIBackgroundColor());
+        CustomRectUtils.drawRect(x, y, x + width, y + 0.4D, GUISettings.get().getAdditionalGUIBackgroundColor());
+        CustomRectUtils.drawRect(x, y + height - 0.4D, x + width, y + height, GUISettings.get().getAdditionalGUIBackgroundColor());
     }
 }

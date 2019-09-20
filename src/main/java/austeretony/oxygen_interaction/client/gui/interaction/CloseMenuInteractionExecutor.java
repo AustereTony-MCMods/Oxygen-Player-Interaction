@@ -2,11 +2,11 @@ package austeretony.oxygen_interaction.client.gui.interaction;
 
 import java.util.UUID;
 
-import austeretony.oxygen.client.gui.OxygenGUITextures;
-import austeretony.oxygen.client.interaction.IInteractionMenuExecutor;
+import austeretony.oxygen_core.client.gui.OxygenGUITextures;
+import austeretony.oxygen_core.client.interaction.InteractionMenuEntry;
 import net.minecraft.util.ResourceLocation;
 
-public class CloseMenuInteractionExecutor implements IInteractionMenuExecutor {
+public class CloseMenuInteractionExecutor implements InteractionMenuEntry {
 
     @Override
     public String getName() {
