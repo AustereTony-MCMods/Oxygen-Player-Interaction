@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
         modid = InteractionMain.MODID, 
         name = InteractionMain.NAME, 
         version = InteractionMain.VERSION,
-        dependencies = "required-after:oxygen_core@[0.9.0,);",
+        dependencies = "required-after:oxygen_core@[0.9.1,);",
         clientSideOnly = true,
         certificateFingerprint = "@FINGERPRINT@",
         updateJSON = InteractionMain.VERSIONS_FORGE_URL)

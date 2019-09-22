@@ -13,7 +13,7 @@ public class PlayerInteraction implements Interaction {
     @Override
     public boolean isValid() {
         this.pointed = ClientReference.getPointedEntity();
-        return pointed != null && pointed instanceof EntityPlayer;
+        return this.pointed != null && this.pointed instanceof EntityPlayer;
     }
 
     @Override

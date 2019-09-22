@@ -5,6 +5,7 @@ import austeretony.alternateui.screen.core.GUIBaseElement;
 import austeretony.alternateui.screen.panel.GUIButtonPanel;
 import austeretony.alternateui.screen.text.GUITextLabel;
 import austeretony.alternateui.util.EnumGUIOrientation;
+import austeretony.oxygen_core.client.api.ClientReference;
 import austeretony.oxygen_core.client.api.OxygenHelperClient;
 import austeretony.oxygen_core.client.gui.IndexedGUIButton;
 import austeretony.oxygen_core.client.gui.settings.GUISettings;
@@ -25,7 +26,7 @@ public class InteractionGUISection extends AbstractGUISection {
     @Override
     public void init() {
         this.addElement(new InteractionMenuGUIFiller(0, 0, this.getWidth(), this.getHeight()));
-        String username = OxygenHelperClient.getPlayerUsername();
+        String username = ClientReference.getPointedEntity() != null ? ClientReference.getPointedEntity().getName() : "";
         this.addElement(new GUITextLabel(- this.textWidth(username, GUISettings.get().getTitleScale()) - 6, this.getHeight() / 2 - 3).setDisplayText(username, true, GUISettings.get().getTitleScale()));
         this.addElement(this.actionsPanel = new GUIButtonPanel(EnumGUIOrientation.VERTICAL, 0, 0, 90, 14).setButtonsOffset(1).setTextScale(GUISettings.get().getTextScale()).enableTextShadow());
     }

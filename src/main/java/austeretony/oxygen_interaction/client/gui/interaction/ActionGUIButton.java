@@ -13,7 +13,6 @@ public class ActionGUIButton extends IndexedGUIButton<InteractionMenuEntry> {
 
     public ActionGUIButton(InteractionMenuEntry index) {
         super(index);
-        this.setTexture(index.getIcon());
         this.setDisplayText(ClientReference.localize(index.getName()));
         this.enableDynamicBackground(GUISettings.get().getEnabledElementColor(), GUISettings.get().getEnabledElementColor(), GUISettings.get().getHoveredElementColor());
         this.setSound(OxygenSoundEffects.BUTTON_CLICK.soundEvent);
@@ -48,15 +47,10 @@ public class ActionGUIButton extends IndexedGUIButton<InteractionMenuEntry> {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
             GlStateManager.pushMatrix();           
-            GlStateManager.translate(14.0F, textY, 0.0F); 
+            GlStateManager.translate(4.0F, textY, 0.0F); 
             GlStateManager.scale(this.getTextScale(), this.getTextScale(), 0.0F); 
             this.mc.fontRenderer.drawString(this.getDisplayText(), 0, 0, textColor, this.isTextShadowEnabled());
             GlStateManager.popMatrix();
-
-            GlStateManager.enableBlend(); 
-            this.mc.getTextureManager().bindTexture(this.getTexture());                        
-            drawCustomSizedTexturedRect(2, 2, iconU, 0, 10, 10, 30, 10);
-            GlStateManager.disableBlend(); 
 
             GlStateManager.popMatrix();
         }

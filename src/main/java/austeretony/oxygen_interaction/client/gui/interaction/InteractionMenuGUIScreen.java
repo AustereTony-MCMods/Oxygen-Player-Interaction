@@ -19,6 +19,7 @@ public class InteractionMenuGUIScreen extends AbstractGUIScreen {
 
     public InteractionMenuGUIScreen(UUID playerUUID) {
         OxygenHelperClient.syncSharedData(InteractionMain.PLAYER_INTERACTION_MENU_SCREEN_ID);
+        
         this.playerUUID = playerUUID;
     }
 
