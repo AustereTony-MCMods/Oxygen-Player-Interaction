@@ -1,11 +1,14 @@
+0.10.0b [2020-01-17]
++ Improved menu design.
+
 0.9.0b [2019-09-22]
-+Compatibility with Oxygen Core 0.9.
++ Compatibility with Oxygen Core 0.9.
 
 0.8.1b [2019-08-12]
-+Redesign of the overlay and the interaction menu.
++ Redesign of the overlay and the interaction menu.
 
 0.8.0b
-+Performance improvements.
++ Performance improvements.
 
 0.1.0a
-+Initial release.
++ Initial release.
