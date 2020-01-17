@@ -1,4 +1,4 @@
-package austeretony.oxygen_interaction.client.gui.interaction;
+package austeretony.oxygen_pinteraction.client.gui.interaction;
 
 import java.util.UUID;
 
@@ -8,30 +8,30 @@ import austeretony.alternateui.screen.core.GUIBaseElement;
 import austeretony.alternateui.screen.core.GUIWorkspace;
 import austeretony.alternateui.util.EnumGUIAlignment;
 import austeretony.oxygen_core.client.api.OxygenHelperClient;
-import austeretony.oxygen_core.client.interaction.InteractionHelperClient;
-import austeretony.oxygen_interaction.common.main.InteractionMain;
+import austeretony.oxygen_core.client.api.PlayerInteractionMenuHelper;
+import austeretony.oxygen_pinteraction.common.main.PlayerInteractionMain;
 
-public class InteractionMenuGUIScreen extends AbstractGUIScreen {
+public class PlayerInteractionScreen extends AbstractGUIScreen {
 
     public final UUID playerUUID;
 
-    protected InteractionGUISection interactionSection;
+    protected PlayerInteractionSection interactionSection;
 
-    public InteractionMenuGUIScreen(UUID playerUUID) {
-        OxygenHelperClient.syncSharedData(InteractionMain.PLAYER_INTERACTION_MENU_SCREEN_ID);
-        
+    public PlayerInteractionScreen(UUID playerUUID) {
+        OxygenHelperClient.syncSharedData(PlayerInteractionMain.PLAYER_INTERACTION_MENU_SCREEN_ID);
+
         this.playerUUID = playerUUID;
     }
 
     @Override
     protected GUIWorkspace initWorkspace() {
-        int amount = InteractionHelperClient.MENU_ENTRIES.size();
-        return new GUIWorkspace(this, 90, 15 + amount * 14 + (amount - 1)).setAlignment(EnumGUIAlignment.CENTER, 45, 0);
+        int amount = PlayerInteractionMenuHelper.MENU_ENTRIES.size();
+        return new GUIWorkspace(this, 80, 13 + amount * 12 + (amount - 1)).setAlignment(EnumGUIAlignment.CENTER, 40, 0);
     }
 
     @Override
     protected void initSections() {
-        this.getWorkspace().initSection(this.interactionSection = new InteractionGUISection(this));        
+        this.getWorkspace().initSection(this.interactionSection = new PlayerInteractionSection(this));        
     }
 
     @Override

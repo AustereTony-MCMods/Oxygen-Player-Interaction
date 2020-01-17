@@ -1,8 +1,8 @@
-package austeretony.oxygen_interaction.client.interaction;
+package austeretony.oxygen_pinteraction.client.interaction;
 
 import austeretony.oxygen_core.client.api.ClientReference;
 import austeretony.oxygen_core.client.interaction.Interaction;
-import austeretony.oxygen_interaction.client.gui.interaction.InteractionMenuGUIScreen;
+import austeretony.oxygen_pinteraction.client.gui.interaction.PlayerInteractionScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -18,6 +18,6 @@ public class PlayerInteraction implements Interaction {
 
     @Override
     public void execute() {
-        ClientReference.displayGuiScreen(new InteractionMenuGUIScreen(ClientReference.getPersistentUUID(this.pointed)));
+        ClientReference.displayGuiScreen(new PlayerInteractionScreen(ClientReference.getPersistentUUID(this.pointed)));
     }
 }
