@@ -25,10 +25,10 @@ public class PlayerInteractionSection extends AbstractGUISection {
         int amount = PlayerInteractionMenuHelper.MENU_ENTRIES.size() + 1;
         this.addElement(this.actionsPanel = new OxygenScrollablePanel(this.screen, 0, 0, 80, 12, 1, amount, amount, EnumBaseGUISetting.TEXT_SCALE.get().asFloat(), false));
 
-        this.actionsPanel.<ActionPanelEntry>setClickListener((previous, clicked, mouseX, mouseY, mouseButton)->{
+        this.actionsPanel.<ActionPanelEntry>setElementClickListener((previous, clicked, mouseX, mouseY, mouseButton)->{
             if (mouseButton == 0) {
                 this.screen.close();
-                clicked.index.execute(this.screen.playerUUID);
+                clicked.getWrapped().execute(this.screen.playerUUID);
             }
         });
     }

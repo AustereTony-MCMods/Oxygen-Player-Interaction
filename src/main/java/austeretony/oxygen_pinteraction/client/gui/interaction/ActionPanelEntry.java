@@ -4,12 +4,12 @@ import austeretony.alternateui.util.EnumGUIAlignment;
 import austeretony.oxygen_core.client.api.EnumBaseClientSetting;
 import austeretony.oxygen_core.client.api.EnumBaseGUISetting;
 import austeretony.oxygen_core.client.gui.OxygenGUIUtils;
-import austeretony.oxygen_core.client.gui.elements.OxygenIndexedPanelEntry;
+import austeretony.oxygen_core.client.gui.elements.OxygenWrapperPanelEntry;
 import austeretony.oxygen_core.client.interaction.PlayerInteractionMenuEntry;
 import austeretony.oxygen_core.common.sound.OxygenSoundEffects;
 import net.minecraft.client.renderer.GlStateManager;
 
-public class ActionPanelEntry extends OxygenIndexedPanelEntry<PlayerInteractionMenuEntry> {
+public class ActionPanelEntry extends OxygenWrapperPanelEntry<PlayerInteractionMenuEntry> {
 
     public ActionPanelEntry(PlayerInteractionMenuEntry entry) {
         super(entry);
@@ -17,7 +17,7 @@ public class ActionPanelEntry extends OxygenIndexedPanelEntry<PlayerInteractionM
         this.setDynamicBackgroundColor(EnumBaseGUISetting.ELEMENT_ENABLED_COLOR.get().asInt(), EnumBaseGUISetting.ELEMENT_DISABLED_COLOR.get().asInt(), EnumBaseGUISetting.ELEMENT_HOVERED_COLOR.get().asInt());
         this.setTextDynamicColor(EnumBaseGUISetting.TEXT_ENABLED_COLOR.get().asInt(), EnumBaseGUISetting.TEXT_DISABLED_COLOR.get().asInt(), EnumBaseGUISetting.TEXT_HOVERED_COLOR.get().asInt());
         if (EnumBaseClientSetting.ENABLE_SOUND_EFFECTS.get().asBoolean())
-            this.setSound(OxygenSoundEffects.BUTTON_CLICK.soundEvent);
+            this.setSound(OxygenSoundEffects.BUTTON_CLICK.getSoundEvent());
     }
 
     @Override

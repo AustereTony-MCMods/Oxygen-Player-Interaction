@@ -4,7 +4,6 @@ import austeretony.oxygen_core.client.api.ClientReference;
 import austeretony.oxygen_core.client.api.EnumBaseClientSetting;
 import austeretony.oxygen_core.client.api.EnumBaseGUISetting;
 import austeretony.oxygen_core.client.api.OxygenHelperClient;
-import austeretony.oxygen_core.client.gui.OxygenGUIUtils;
 import austeretony.oxygen_core.client.gui.overlay.Overlay;
 import austeretony.oxygen_core.common.config.OxygenConfig;
 import net.minecraft.client.Minecraft;
@@ -25,7 +24,7 @@ public class PlayerInteractionOverlay implements Overlay {
 
     boolean interactWithRMB;
 
-    int x, y, baseOverlayTextColor, additionalOverlayTextColor, baseBackgroundColor, additionalBackgroundColor, keyNameWidth, frameWidth, frameHeight;
+    int x, y, baseOverlayTextColor, additionalOverlayTextColor, baseBackgroundColor, additionalBackgroundColor, keyNameWidth;
 
     float scale;
 
@@ -65,13 +64,11 @@ public class PlayerInteractionOverlay implements Overlay {
         this.scale = EnumBaseGUISetting.OVERLAY_SCALE.get().asFloat();
 
         if (OxygenConfig.ENABLE_INTERACTION_KEY.asBoolean())
-            this.keyName = OxygenHelperClient.getKeyHandler().getInteractionKeybinding().getDisplayName();
+            this.keyName = String.format("[%s]", OxygenHelperClient.getKeyHandler().getInteractionKeybinding().getDisplayName());
         this.playerStr = ClientReference.localize("oxygen_interaction.gui.overlay.player");
         this.interactStr = ClientReference.localize("key.oxygen_core.interact");
 
         this.keyNameWidth = this.mc.fontRenderer.getStringWidth(this.keyName);
-        this.frameWidth = this.keyNameWidth + 6;
-        this.frameHeight = 12;
     }
 
     @Override
@@ -87,12 +84,10 @@ public class PlayerInteractionOverlay implements Overlay {
         this.mc.fontRenderer.drawString(this.playerStr, 0, 12, this.baseOverlayTextColor, true);
 
         if (!this.interactWithRMB) {
-            OxygenGUIUtils.drawKeyFrame(0, 24, this.frameWidth, this.frameHeight, this.baseBackgroundColor, this.additionalBackgroundColor);
-
-            this.mc.fontRenderer.drawString(this.keyName, 3, 27, this.additionalOverlayTextColor);
-            this.mc.fontRenderer.drawString(this.interactStr, 10 + this.keyNameWidth, 27, this.additionalOverlayTextColor, true);
+            this.mc.fontRenderer.drawString(this.keyName, 2, 27, this.additionalOverlayTextColor);
+            this.mc.fontRenderer.drawString(this.interactStr, 6 + this.keyNameWidth, 27, this.additionalOverlayTextColor, true);
         } else
-            this.mc.fontRenderer.drawString(this.interactStr, 0, 27, this.additionalOverlayTextColor, true);
+            this.mc.fontRenderer.drawString(this.interactStr, 2, 27, this.additionalOverlayTextColor, true);
 
         GlStateManager.popMatrix();
     }
